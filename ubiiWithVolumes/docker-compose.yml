@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    ubii-web-frontend:
+        build: 
+            dockerfile: ubii-web.dockerfile
+            context: ./ubii-web-frontend
+        ports:
+            - 8080:8080
+        depends_on:
+            - ubii-node-master
+        networks:
+            - ubii-network
+        volumes:
+            - ./ubii-web-frontend:/usr/src/app
+
+    ubii-node-master:
+        build: 
+            dockerfile: ubii-master.dockerfile
+            context: ./ubii-node-master/
+        ports:
+            - 8101:8101
+            - 8102:8102
+            - 8103:8103
+            - 8104:8104
+        networks:
+            - ubii-network
+        volumes:
+            - ./ubii-node-master:/usr/src/app
+networks:
+    ubii-network:
+        
